@@ -1,41 +1,21 @@
-# Couldn't automatically generate a config from your source code.
-# This is a generic template to serve as a base for your custom config
-# See: https://circleci.com/docs/configuration-reference
 version: 2.1
-jobs:
-  setup_dependencies:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      - restore_cache:
-          key: deps-{{ checksum "requirements.lock" }}
-      - run:
-          command: |
-            pip install --user -r requirements.lock
-      - save_cache:
-          key: deps-{{ checksum "requirements.lock" }}
-          paths:
-            - "~/.local"
 
+jobs:
   test:
     docker:
-      - image: circleci/python:3.8.1
+      - image: circleci/node:14
     steps:
       - checkout
-      - restore_cache:
-          key: deps-{{ checksum "requirements.lock" }}
       - run:
-          name: Run Tests
-          command: |
-            # ここでテストを実行するコマンドを実行
-            python3 -m unittest -v
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Run tests
+          command: npm test
 
 workflows:
   version: 2
-  all:
+  test:
     jobs:
-      - setup_dependencies
-      - test:
-          requires:
-            - setup_dependencies
+      - test
+

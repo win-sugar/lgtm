@@ -11,10 +11,29 @@ jobs:
       - restore_cache:
           key: deps-{{ checksum "requirements.lock" }}
       - run:
-          command: touch example.txt
+          command: |
+            pip install --user -r requirements.lock
+      - save_cache:
+          key: deps-{{ checksum "requirements.lock" }}
+          paths:
+            - "~/.local"
+
+  test:
+    docker:
+      - image: circleci/python:3.8.1
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps-{{ checksum "requirements.lock" }}
+      - run:
+          name: Run Tests
+          command: |
+            # ここでテストを実行するコマンドを実行
+            python3 -m unittest -v
 
 workflows:
-  example:
+  version: 2
+  all:
     jobs:
       - setup_dependencies
       - test:

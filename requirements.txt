@@ -2,11 +2,6 @@ about-time==4.2.1
 absl-py==2.1.0
 alembic==1.13.1
 alive-progress==3.1.5
-ansys-api-fluent==0.3.22
-ansys-api-platform-instancemanagement==1.1.0
-ansys-fluent-core==0.20.1
-ansys-platform-instancemanagement==1.1.2
-ansys-units==0.3.2
 appdirs==1.4.4
 asttokens==2.4.1
 astunparse==1.6.3

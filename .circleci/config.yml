@@ -6,9 +6,8 @@ jobs:
       - image: circleci/node:14
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: npm install
+      - node/install-package:
+          package-manager: npm
       - run:
           name: Run tests
           command: npm test
